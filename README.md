@@ -1,4 +1,4 @@
-# Spring Cloud Demo — 全链路 CI/CD 实践项目
+# Spring Cloud devops — 全链路 CI/CD 实践项目
 
 > 基于 Spring Cloud + Nacos 微服务，配合 GitLab + Jenkins + Harbor + Kubernetes + Helm 实现从代码提交到多环境部署的完整 DevOps 流水线。
 
@@ -157,7 +157,7 @@
 ### Helm 部署与自动回滚
 
 ```
-helm upgrade --install spring-cloud-demo ./deploy/helm/spring-cloud-demo \
+helm upgrade --install spring-cloud-devops ./deploy/helm/spring-cloud-devops \
   -n $NAMESPACE \
   -f values-$ENV.yaml \
   --set global.imageRegistry=$HARBOR_REGISTRY \
@@ -197,10 +197,10 @@ helm upgrade --install spring-cloud-demo ./deploy/helm/spring-cloud-demo \
 
 ```bash
 # 查看发布历史
-helm history spring-cloud-demo -n prod
+helm history spring-cloud-devops -n prod
 
 # 回滚到指定版本
-helm rollback spring-cloud-demo <REVISION> -n prod --wait
+helm rollback spring-cloud-devops <REVISION> -n prod --wait
 ```
 
 ---
@@ -208,7 +208,7 @@ helm rollback spring-cloud-demo <REVISION> -n prod --wait
 ## Helm Chart 结构
 
 ```
-deploy/helm/spring-cloud-demo/
+deploy/helm/spring-cloud-devops/
 ├── Chart.yaml              # Chart 元数据 (v2, appVersion: 1.0.0)
 ├── values.yaml             # 默认配置（基线）
 ├── values-dev.yaml          # dev 环境覆盖配置
@@ -254,7 +254,7 @@ spring-cloud-ex/
 │   ├── Dockerfile
 │   └── pom.xml
 ├── deploy/
-│   ├── helm/spring-cloud-demo/    # Helm Chart（多环境 values）
+│   ├── helm/spring-cloud-devops/    # Helm Chart（多环境 values）
 │   └── k8s/                       # 原生 K8s YAML（备用）
 ├── docs/cicd/                     # 从零搭建 CI/CD 的完整文档
 │   ├── from-zero/
